@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('shop.index');
-});
+Route::get('/', 'ProductController@getIndex')->name('home');
+
+Route::post('/login', 'SessionController@store');
+Route::get('/login','SessionController@create');
+
+Route::get('/register','RegistrationController@create')->name('register');
+Route::post('/register', 'RegistrationController@store')->name('register');
+
+Route::get('/login','SessionController@create')->name('login');
+Route::post('/login', 'SessionController@store')->name('login');
+
+Route::get('user/profile', 'UserController@getProfile')->name('profile');
