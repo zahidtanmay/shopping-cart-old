@@ -11,15 +11,23 @@
 |
 */
 
+Route::get('/logout', 'SessionController@destroy')->middleware('auth')->name('logout');
+Route::get('/user/profile', 'UserController@getProfile')->middleware('auth')->name('profile');
+
+
+
 Route::get('/', 'ProductController@getIndex')->name('home');
+Route::get('/add-to-cart/{id}', 'ProductController@addToCart')->name('addToCart');
+Route::get('/shopping-cart', 'ProductController@getCart')->name('shoppingCart');
+Route::get('/reduce-by-one/{id}','ProductController@reduceByone')->name('reduceByone');
+Route::get('/reduce-by-all','ProductController@reduceAll')->name('reduceAll');
 
-Route::post('/login', 'SessionController@store');
-Route::get('/login','SessionController@create');
+Route::get('/checkout', 'ProductController@getCheckout')->middleware('auth')->name('checkout');
+Route::post('/checkout', 'ProductController@postCheckout')->middleware('auth')->name('checkout');
 
-Route::get('/register','RegistrationController@create')->name('register');
-Route::post('/register', 'RegistrationController@store')->name('register');
 
-Route::get('/login','SessionController@create')->name('login');
-Route::post('/login', 'SessionController@store')->name('login');
+Route::get('/register','RegistrationController@create')->middleware('guest')->name('register');
+Route::post('/register', 'RegistrationController@store')->middleware('guest')->name('register');
 
-Route::get('user/profile', 'UserController@getProfile')->name('profile');
+Route::get('/login','SessionController@create')->middleware('guest')->name('login');
+Route::post('/login', 'SessionController@store')->middleware('guest')->name('login');

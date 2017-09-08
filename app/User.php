@@ -27,4 +27,8 @@ class User extends Authenticatable
     ];
 
     public $table = "users";
+
+    public function orders(){
+        return $this->hasMany('App\Order');
+    }
 }

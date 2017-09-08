@@ -6,11 +6,13 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Register</div>
-                    <div class="alert alert-danger">
+                    
                         @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">
                             <p>{{$error}}</p>
+                            </div>
                         @endforeach
-                    </div>
+                    
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{route('login')}}">
                             {!! csrf_field() !!}

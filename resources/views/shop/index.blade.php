@@ -6,6 +6,15 @@
 
 @section('content')
 
+@if(Session::has('success'))
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <div class="alert alert-success">
+            {{Session::get('success')}}
+        </div>
+    </div>
+</div>
+@endif
 @foreach($products->chunk(3) as $productChunk)
    <div class="row">
    @foreach($productChunk as $product)
@@ -17,7 +26,7 @@
                     <p class="description">{{$product->description}}</p>
                     <div class="clearfix">
                         <div class="pull-left price">${{$product->price}}</div>
-                        <a href="#" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                        <a href="{{route('addToCart', $product->id)}}" class="btn btn-success pull-right" role="button">Add to Cart</a>
                     </div>
                 </div>
             </div>
