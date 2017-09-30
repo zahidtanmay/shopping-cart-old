@@ -6,13 +6,17 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Register</div>
+                    @if($errors->any())
+
                     <div class="alert alert-danger">
                         @foreach($errors->all() as $error)
                             <p>{{$error}}</p>
                         @endforeach
                     </div>
+                    @endif
+
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{route('register')}}">
+                        <form id="signup" class="form-horizontal" role="form" method="POST" action="{{route('register')}}">
                             {!! csrf_field() !!}
 
                             <div class="form-group">
@@ -61,3 +65,55 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script>
+
+        $().ready(function() {
+            // validate the comment form when it is submitted
+            $("#signup").validate({
+                rules: {
+                    name: {
+                        required: true,
+                    },
+                    password: {
+                        required: true,
+                        minlength: 5
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password_confirmation: {
+                        required: true,
+                        minlength: 5,
+                        equalTo: "#password"
+                    },
+                },
+                messages: {
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 5 characters long"
+                    },
+                    email: "Please enter a valid email address",
+                    password_confirmation: {
+                        equalTo: "Please enter the same password as above"
+                    },
+                }
+            });
+
+        });
+    </script>
+
+@endsection
+
+@section('styles')
+    <style type="text/css">
+        form label.error, label.error {
+            /* remove the next line when you have trouble in IE6 with labels in list */
+            color: red;
+            font-style: italic
+        }
+    </style>
+    @endsection
